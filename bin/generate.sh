@@ -10,13 +10,16 @@ SWAGGER_CODEGEN_HOME=~/path-t/my/swagger-codegen
 # I want it to 
 mkdir -p $SWAGGER_CODEGEN_HOME/out
 echo $SWAGGER_CODEGEN_HOME/out
+cp ../specs/spec-dev.json $SWAGGER_CODEGEN_HOME
 $SWAGGER_CODEGEN_HOME/run-in-docker.sh  \
     generate  \
-    -i `pwd`/sip-integration-v2-api.json  \
+    -i spec-dev.json  \
     -l python  \
-    -t codegen_templates_eventfactories
+    -t codegen_templates_eventfactories  \
+    -o out
 # and -t codegen_templates_eventschemata
 # and maybe even codegen_templates_events
+rm -rf ./eventfactories/out
 mv $SWAGGER_CODEGEN_HOME/out ./eventfactories
 # factoryboy templates -> eventfactories package
 # marshmallow templates -> eventschemata package
